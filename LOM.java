@@ -47,7 +47,9 @@ public class LOM{
 		generateTeams();
 		conferences = makeConferences(topEight, worstSix);
 		printConferences(conferences);
-		generateLeagueSchedule();
+		Schedule schedule = new Schedule();
+		schedule.generateLeagueSchedule(league);
+		//generateLeagueSchedule();
 	}
 
 	/*	Creates team objects for each of the league specified in the teamNames String array.
@@ -110,54 +112,7 @@ public class LOM{
 		}
 	}
 
-	public static HashMap<String,HashMap<String,Integer>> createTeamRandomPreferences(){
-		HashMap<String,HashMap<String,Integer>> teamsPrefs = new HashMap<String,HashMap<String,Integer>>();
-		Random r = new Random();
-		int offset = 10;
-		for( String team : teamNames ){
-			HashMap<String,Integer> teamPref = new HashMap<String,Integer>();
-			//System.out.println(team);
-			for ( String rival : teamNames ){
-				if(!team.equals(rival)){
-					if(league.get(team).getTeamConference().equals(league.get(rival).getTeamConference())){
-						teamPref.put(rival,new Integer(r.nextInt(8)+ offset));
-					}
-					else{
-						teamPref.put(rival,new Integer(r.nextInt(8)));
-					}
-					//System.out.println("	" + rival + " " + teamPref.get(rival).toString());
-				}
-			}
-			teamsPrefs.put(team,teamPref);
-		}
-		return teamsPrefs;
-	}
-
-	public static void printTeamsPreferences(HashMap<String,HashMap<String,Integer>> teamsPrefs){
-		Iterator<String> teamIterator = teamsPrefs.keySet().iterator();
-		while(teamIterator.hasNext()){
-			String team = teamIterator.next();
-			System.out.println(team);
-			Iterator<String> teamPrefIterator = teamsPrefs.get(team).keySet().iterator();
-			while(teamPrefIterator.hasNext()){
-				String rival = teamPrefIterator.next();
-				Integer pref = teamsPrefs.get(team).get(rival);
-				System.out.println("	" + rival + " " + pref);
-			}
-		}
-
-	}
-	
-	public static void printTeamPreferences(String team, HashMap<String,Integer> teamPref){
-		Iterator<String> teamIterator = teamPref.keySet().iterator();
-		System.out.println(team);
-		while(teamIterator.hasNext()){
-			String rival = teamIterator.next();
-			Integer pref = teamPref.get(rival);
-			System.out.println("	" + rival + " " + pref);
-		}
-	}
-
+/*
 	public static HashMap<String,String> generateWeekMatchups(HashMap<String,HashMap<String,Integer>> teamsPrefs){
 		HashMap<String,String> weekMatchups = new HashMap<String,String>();
 		//generate week matchups
@@ -223,20 +178,7 @@ public class LOM{
 	}
 
 
-	public static HashMap<String,HashMap<String,Integer>> initializeSchedule(){
-		HashMap<String,HashMap<String,Integer>> schedule = new HashMap<String,HashMap<String,Integer>>();
-		for(String team : teamNames){
-			HashMap<String,Integer> teamSchedule = new HashMap<String,Integer>();
-			for(String rival : teamNames){
-				Integer week = new Integer(0);
-				if(!team.equals(rival)){
-					teamSchedule.put(rival,week);
-				}
-			}
-			schedule.put(team,teamSchedule);
-		}
-		return schedule;
-	} 
+
 
 	public static void printWeekMatchups(HashMap<String,String> weekMatchups, int week){
 		Iterator<String> matchupKeyIterator = weekMatchups.keySet().iterator();
@@ -249,27 +191,10 @@ public class LOM{
                }
 	}
 
-	public static void cleanTeamsPrefs(HashMap<String,HashMap<String,Integer>> teamsPrefs, HashMap<String,String> weekMatchups){
-		for(String team : teamNames){
-			teamsPrefs.get(team).remove(weekMatchups.get(team));
-		}
-	}
+
 	
 	
-	public static void generateLeagueSchedule(){
-		HashMap<String,HashMap<String,Integer>> teamsPrefs = createTeamRandomPreferences();
-		HashMap<String,String> weekMatchups;
-		
-		HashMap<String,HashMap<String,Integer>> schedule = initializeSchedule();
-		// need to do n weeks
-		for(int week = 1 ; week <= 12 ; week++){
-			//printTeamsPreferences(teamsPrefs);
-			weekMatchups = generateWeekMatchups(teamsPrefs);
-			printWeekMatchups(weekMatchups, week);
-			cleanTeamsPrefs(teamsPrefs,weekMatchups);
-			//printTeamsPreferences(teamsPrefs);
-		}
-	}
+
 
 	public static HashMap<String,Queue<String>> fillTeamsToAskQueue(HashMap<String, HashMap<String,Integer>> tp){
 		HashMap<String,ArrayList<TeamPref>> teamsToAsk = new HashMap<String,ArrayList<TeamPref>>();
@@ -305,5 +230,5 @@ public class LOM{
 		}
 		return sortedTeamsToAsk;
 	}
-
+*/
 }
