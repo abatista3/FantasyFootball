@@ -9,7 +9,7 @@ public class Schedule{
 	private HashMap<Integer,ArrayList<Matchup>> schedule = new HashMap<Integer,ArrayList<Matchup>>();
 
 	public Schedule(){
-		for(Integer i = 1; i <= 12; i++){
+		for(Integer i = 1; i <= 13; i++){
 			schedule.put(i,null);
 		}
 	}
@@ -33,9 +33,9 @@ public class Schedule{
 			}
 		}
 
-		ArrayList<Integer> weeks = randomizeWeeks(12);
+		ArrayList<Integer> weeks = randomizeWeeks(13);
 		// need to do n weeks
-		for(int week = 0 ; week < 12 ; week++){
+		for(int week = 0 ; week < 13 ; week++){
 			weekMatchups  = new ArrayList<Matchup>();
 			System.out.println(week);
 			for(int i = 0; i < league.size()/2; i++){
